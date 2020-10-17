@@ -96,7 +96,7 @@ namespace Apis.Albums
                 responseBody.FirstOrDefault().id.Should().BePositive();
                 responseBody.FirstOrDefault().userId.Should().BePositive();
                 responseBody.FirstOrDefault().title.Should().NotBeNullOrEmpty();
-                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
             });
         }
 
@@ -130,8 +130,8 @@ namespace Apis.Albums
                 HeadersHelper.HeadersList(apiAlbumsResponse, "Access-Control-Allow-Credentials").Value.Should().Be("true");
                 HeadersHelper.HeadersList(apiAlbumsResponse, "Vary").Value.Should().Be("Origin, Accept-Encoding");
                 HeadersHelper.HeadersList(apiAlbumsResponse, "Connection").Value.Should().Be("keep-alive");
-                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
-                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
+                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
             });
         }
 
@@ -149,8 +149,8 @@ namespace Apis.Albums
                 apiAlbumsResponse.ContentType.Should().Be("application/json; charset=utf-8");
                 apiAlbumsResponse.ContentEncoding.Should().BeNull();
                 apiAlbumsResponse.Headers.Should().NotBeNull();
-                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
-                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
+                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
             });
         }
 
@@ -178,9 +178,9 @@ namespace Apis.Albums
                 apiAlbumResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
                 apiAlbumResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
                 apiAlbumResponse.Headers.Should().NotBeNull();
-                Console.WriteLine($"Request execution time {apiAlbumResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
                 apiAlbumResponse.Data.Should().BeEquivalentTo(album);
-                //Assert.LessOrEqual(apiAlbumResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumResponse.ElapsedMiliseconds}");
+                //Assert.LessOrEqual(apiAlbumResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
             });
         }
     }

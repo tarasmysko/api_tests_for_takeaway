@@ -112,7 +112,7 @@ namespace Apis.Posts
                 responseBody.title.Should().Be(post.title);
                 responseBody.body.Should().Be(post.body);
                 responseBody.userId.Should().Be(post.userId);
-                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms");
             });
         }
 
@@ -148,8 +148,8 @@ namespace Apis.Posts
                 HeadersHelper.HeadersList(createPostResponse, "Access-Control-Allow-Credentials").Value.Should().Be("true");
                 HeadersHelper.HeadersList(createPostResponse, "Vary").Value.Should().Be("Origin, X-HTTP-Method-Override, Accept-Encoding");
                 HeadersHelper.HeadersList(createPostResponse, "Connection").Value.Should().Be("keep-alive");
-                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds}");
-                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms");
+                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
             });
         }
 
@@ -170,8 +170,8 @@ namespace Apis.Posts
                 createPostResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
                 createPostResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
                 createPostResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
-                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds}");
-                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds}");
+                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms ms");
+                //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
             });
         }
     }
