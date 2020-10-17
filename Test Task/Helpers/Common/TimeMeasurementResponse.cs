@@ -18,11 +18,6 @@ namespace Test_Task.Common
         public TimeSpan ElapsedTime { get; }
         public double ElapsedMiliseconds => ElapsedTime.TotalMilliseconds;
 
-        public void VerifyResponseTime(TimeSpan maxReponseTime)
-        {
-            Assume.That(ElapsedTime < maxReponseTime, $"Request execution time to URI={ResponseUri}: {ElapsedTime}");
-        }
-
         public IRestRequest Request { get => Response.Request; set => Response.Request = value; }
         public string ContentType { get => Response.ContentType; set => Response.ContentType = value; }
         public long ContentLength { get => Response.ContentLength; set => Response.ContentLength = value; }

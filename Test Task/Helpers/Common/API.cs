@@ -12,7 +12,6 @@ namespace Test_Task.Common
     {
         private readonly string _serviceUrl;
         private readonly RestClient _client;
-        protected readonly ILogger _logger;
 
         protected Api(string serviceUrl)
         {
@@ -22,19 +21,34 @@ namespace Test_Task.Common
 
         protected RestRequest CreateGetRequest(string url = null)
         {
-            return CreateRequestWithServiceUrl(url, Method.GET);
+            return CreateRequest(url, Method.GET);
         }
 
-        private RestRequest CreateRequestWithServiceUrl(string url, Method methodType)
+        //protected RestRequest CreatePostRequest<TPayload>(string url = null, TPayload payload = null)
+        //    where TPayload : class
+        //{
+        //    return CreateRequest(url, Method.POST, payload);
+        //}
+
+        protected RestRequest CreatePostRequest<TPayload>(TPayload payload)
+        //where TPayload : class
         {
-            return CreateRequest(CreateServiceUrl(url), methodType);
+            var restRequest = CreateRequest(null, Method.POST);
+
+            if (payload != null)
+            {
+                restRequest.AddJsonBody(payload);
+            }
+
+            return restRequest;
         }
 
         private RestRequest CreateRequest(string url, Method methodType)
         {
+            var fullUrl = CreateServiceUrl(url);
             var restRequest = new RestRequest
             {
-                Resource = url,
+                Resource = fullUrl,
                 RequestFormat = DataFormat.Json,
                 Method = methodType
             };
@@ -46,14 +60,7 @@ namespace Test_Task.Common
 
         private string CreateServiceUrl(string url)
         {
-            if (_serviceUrl == null)
-            {
-                return url;
-            }
-
-            return url == null
-                ? _serviceUrl
-                : $"{_serviceUrl}/{url}";
+            return url == null ? _serviceUrl : $"{_serviceUrl}/{url}";
         }
 
         protected async Task<TimeMeasurementResponse<TResponse>> ExecuteRequest<TResponse>(IRestRequest request)
@@ -64,11 +71,5 @@ namespace Test_Task.Common
 
             return new TimeMeasurementResponse<TResponse>(response, stopwatch.Elapsed);
         }
-
-        //protected async Task<TimedRestResponse<IRestResponse<TResponse>>> ExecuteRequest<TResponse>(IRestRequest request)
-        //{
-        //    return await TimedRestResponse<IRestResponse<TResponse>>.Measure(async () => await _client.ExecuteAsync<TResponse>(request));
-        //    //return _client.ExecuteAsync<TResponse>(request);
-        //}
     }
 }
