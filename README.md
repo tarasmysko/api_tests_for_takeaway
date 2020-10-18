@@ -12,11 +12,13 @@ Execution time is logged to the report as writeline text.
 - dotnet core 3.1 to run dotnet CLI
 
 ## How to use
-1. To run all tests -> dotnet test "Test Task.csproj" --logger trx;LogFileName=results.xml --verbosity q
-2. To run tests for specific Endpoint (Posts, Albums, Users) -> dotnet test "Test Task.csproj" --logger trx;LogFileName=results.xml --verbosity q --filter TestCategory=Posts
-3. Response time is output to consile and saved to Test_task_takeaway\Test Task\TestResults\results.xml
-4. Tests are run in paralel so there should not be any issues trigger them on CI for Load testing purpose. Unfortunatelly Nunit does not allow repeat tests so i had to use for loop.
-5. For load testing in appsetting.json change "Repeat": 1 to any number and all tests will execute defined number of times and log execution time to results file.
+1. To run all tests from project file -> dotnet test "Test Task.csproj" --logger trx;LogFileName=results.xml --verbosity q
+2. To run all tests from built dll file -> dotnet test "Test Task.dll" --logger trx;LogFileName=results.xml --verbosity q
+3. To run tests for specific Endpoint (Posts, Albums, Users) -> dotnet test "Test Task.dll" --logger trx;LogFileName=results.xml --verbosity q --filter TestCategory=Posts
+4. Response time is output to consile and saved to Test_task_takeaway\Test Task\TestResults\results.xml
+5. Tests are run in paralel so there should not be any issues trigger them on CI for Load testing purpose. Unfortunatelly Nunit does not allow repeat tests so i had to use for loop.
+6. For load testing in appsetting.json change "Repeat": 1 to any number and all tests will execute defined number of times and log execution time to results file.
+7.If you want to know more about running dotnet tests -> https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test
 
 ## Issues
 1. Some exceptions are not handled as they should be. 
