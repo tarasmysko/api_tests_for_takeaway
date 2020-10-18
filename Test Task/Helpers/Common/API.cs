@@ -12,7 +12,7 @@ namespace Test_Task.Common
         protected Api(string serviceUrl)
         {
             _serviceUrl = serviceUrl;
-            _client = new RestClient(UrlHelper.BaseUrl);
+            _client = new RestClient(ConfigHelper.BaseUrl);
         }
 
         protected RestRequest CreateGetRequest(string url = null)
