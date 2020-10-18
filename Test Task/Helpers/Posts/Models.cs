@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Test_Task.Common;
-
-namespace Test_Task.Helpers.Posts
+﻿namespace Test_Task.Helpers.Posts
 
 {
     public class Models

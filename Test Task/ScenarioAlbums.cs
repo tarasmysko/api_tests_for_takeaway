@@ -1,13 +1,11 @@
 using FluentAssertions;
 using NUnit.Framework;
-using System.Configuration;
+using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Test_Task.Helpers.Albums;
 using Test_Task.Common;
-using System;
-using NUnit.Framework.Interfaces;
-using System.Linq;
+using Test_Task.Helpers.Albums;
 
 namespace Apis.Albums
 
@@ -17,67 +15,9 @@ namespace Apis.Albums
     {
         private readonly AlbumAPI _albumApi;
 
-        protected ReporterHelper extent;
-
         public AlbumTests()
         {
             _albumApi = new AlbumAPI();
-        }
-
-        [OneTimeSetUp]
-        public void SetUpReporter()
-        {
-            extent = new ReporterHelper();
-        }
-
-        [SetUp]
-        public void StartUpTest()
-        {
-            extent.CreateTest(TestContext.CurrentContext.Test.Name);
-        }
-
-        [TearDown]
-        public void AfterTest()
-        {
-            try
-            {
-                var status = TestContext.CurrentContext.Result.Outcome.Status;
-                var stacktrace = TestContext.CurrentContext.Result.StackTrace;
-                var errorMessage = "<pre>" + TestContext.CurrentContext.Result.Message + "</pre>";
-                switch (status)
-                {
-                    case TestStatus.Failed:
-                        extent.SetTestStatusFail($"<br>{errorMessage}<br>Stack Trace: <br>{stacktrace}<br>");
-                        Console.WriteLine(TestContext.CurrentContext.Test.FullName);
-
-                        break;
-
-                    case TestStatus.Skipped:
-                        extent.SetTestStatusSkipped();
-                        break;
-
-                    default:
-                        extent.SetTestStatusPass();
-                        break;
-                }
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
-        }
-
-        [OneTimeTearDown]
-        public void CloseAll()
-        {
-            try
-            {
-                extent.Close();
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
         }
 
         [Test]

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using RestSharp;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
-using RestSharp;
 
 namespace Test_Task.Common
 {

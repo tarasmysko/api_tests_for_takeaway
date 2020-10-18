@@ -1,9 +1,5 @@
-﻿using NUnit.Framework.Internal;
-using RestSharp;
-using System;
-using System.Collections.Generic;
+﻿using RestSharp;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Test_Task.Common
@@ -24,14 +20,7 @@ namespace Test_Task.Common
             return CreateRequest(url, Method.GET);
         }
 
-        //protected RestRequest CreatePostRequest<TPayload>(string url = null, TPayload payload = null)
-        //    where TPayload : class
-        //{
-        //    return CreateRequest(url, Method.POST, payload);
-        //}
-
         protected RestRequest CreatePostRequest<TPayload>(TPayload payload)
-        //where TPayload : class
         {
             var restRequest = CreateRequest(null, Method.POST);
 

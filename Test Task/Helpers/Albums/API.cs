@@ -1,12 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using NUnit.Framework;
-using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Test_Task.Common;
-using Test_Task.Helpers;
 using static Test_Task.Helpers.Albums.Models;
 
 namespace Test_Task.Helpers.Albums

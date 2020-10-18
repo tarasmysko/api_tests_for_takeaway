@@ -1,7 +1,7 @@
 {
-  "profiles": {
-    "Test Task": {
-      "commandName": "Project"
+    "profiles": {
+        "Test Task": {
+            "commandName": "Project"
+        }
     }
-  }
 }

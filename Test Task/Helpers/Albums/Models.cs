@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Test_Task.Common;
-
-namespace Test_Task.Helpers.Albums
+﻿namespace Test_Task.Helpers.Albums
 {
     public class Models
     {
