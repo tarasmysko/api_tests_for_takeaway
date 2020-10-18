@@ -62,7 +62,7 @@ namespace Apis.Albums
                 //Arrange
                 //Act
                 var apiAlbumsResponse = await _albumApi.GetAllAlbumsCollection();
-
+                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
                 //Assert
                 Assert.Multiple(() =>
                 {
@@ -84,7 +84,7 @@ namespace Apis.Albums
                 //Arrange
                 //Act
                 var apiAlbumsResponse = await _albumApi.GetAllAlbumsCollection();
-
+                Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
                 //Assert
                 Assert.Multiple(() =>
                 {
@@ -107,7 +107,6 @@ namespace Apis.Albums
                     HeadersHelper.HeadersList(apiAlbumsResponse, "Access-Control-Allow-Credentials").Value.Should().Be("true");
                     HeadersHelper.HeadersList(apiAlbumsResponse, "Vary").Value.Should().Be("Origin, Accept-Encoding");
                     HeadersHelper.HeadersList(apiAlbumsResponse, "Connection").Value.Should().Be("keep-alive");
-                    Console.WriteLine($"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
                 });
             }
         }

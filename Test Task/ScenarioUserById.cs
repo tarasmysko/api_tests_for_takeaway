@@ -32,11 +32,14 @@ namespace Apis.Users
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
                 var allUsers = await _usersApi.GetAllUsersCollection();
                 var user = allUsers.Data.FirstOrDefault();
+
                 //Act
                 var userResponse = await _usersApi.GetUserById(user.id);
+                Console.WriteLine($"Request execution time {userResponse.ElapsedMiliseconds} ms");
                 var userResponseBody = userResponse.Data;
 
                 //Assert
@@ -59,7 +62,7 @@ namespace Apis.Users
                     userResponseBody.company.name.Should().NotBeNullOrEmpty();
                     userResponseBody.company.catchPhrase.Should().NotBeNullOrEmpty();
                     userResponseBody.company.bs.Should().NotBeNullOrEmpty();
-                    Console.WriteLine($"Request execution time {userResponse.ElapsedMiliseconds} ms");
+                    //Assert.LessOrEqual(apiUsersResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
@@ -70,11 +73,15 @@ namespace Apis.Users
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
                 var allUsers = await _usersApi.GetAllUsersCollection();
                 var user = allUsers.Data.FirstOrDefault();
+
                 //Act
                 var userResponse = await _usersApi.GetUserById(user.id);
+                Console.WriteLine($"Request execution time {userResponse.ElapsedMiliseconds} ms");
+
                 //Assert
                 Assert.Multiple(() =>
                 {
@@ -82,8 +89,6 @@ namespace Apis.Users
                     userResponse.ContentType.Should().Be("application/json; charset=utf-8");
                     userResponse.ContentEncoding.Should().BeNull();
                     userResponse.Headers.Should().NotBeNull();
-                    Console.WriteLine($"Request execution time {userResponse.ElapsedMiliseconds} ms");
-                    //Assert.LessOrEqual(apiUsersResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
@@ -94,11 +99,14 @@ namespace Apis.Users
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
                 var allUsers = await _usersApi.GetAllUsersCollection();
                 var user = allUsers.Data.FirstOrDefault();
+
                 //Act
                 var userResponse = await _usersApi.GetUserById(user.id);
+                Console.WriteLine($"Request execution time {userResponse.ElapsedMiliseconds} ms");
 
                 //Assert
                 Assert.Multiple(() =>
@@ -107,7 +115,6 @@ namespace Apis.Users
                     userResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
                     userResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
                     userResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
-                    Console.WriteLine($"Request execution time {userResponse.ElapsedMiliseconds} ms");
                 });
             }
         }

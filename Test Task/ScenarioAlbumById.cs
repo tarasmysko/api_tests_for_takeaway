@@ -10,7 +10,7 @@ using Test_Task.Helpers.Albums;
 namespace Apis.Albums
 
 {
-    [TestFixture, Category("AlbumsId"), Parallelizable(ParallelScope.All)]
+    [TestFixture, Category("Albums"), Parallelizable(ParallelScope.All)]
     public class AlbumByIdTests
     {
         private readonly AlbumAPI _albumApi;
@@ -33,11 +33,14 @@ namespace Apis.Albums
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
                 var allAlbums = await _albumApi.GetAllAlbumsCollection();
                 var album = allAlbums.Data.FirstOrDefault();
+
                 //Act
                 var apiAlbumResponse = await _albumApi.GetAlbumById(album.id);
+                Console.WriteLine($"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
 
                 //Assert
                 Assert.Multiple(() =>
@@ -68,7 +71,6 @@ namespace Apis.Albums
                     apiAlbumResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
                     apiAlbumResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
                     apiAlbumResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
-                    Console.WriteLine($"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
                     //Assert.LessOrEqual(apiAlbumResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
                 });
             }

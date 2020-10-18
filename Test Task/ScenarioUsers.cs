@@ -33,9 +33,12 @@ namespace Apis.Users
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
+
                 //Act
                 var apiUsersResponse = await _usersApi.GetAllUsersCollection();
+                Console.WriteLine($"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
                 var responseBody = apiUsersResponse.Data;
                 var userObject = responseBody.FirstOrDefault();
 
@@ -59,7 +62,7 @@ namespace Apis.Users
                     userObject.company.name.Should().NotBeNullOrEmpty();
                     userObject.company.catchPhrase.Should().NotBeNullOrEmpty();
                     userObject.company.bs.Should().NotBeNullOrEmpty();
-                    Console.WriteLine($"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
+                    //Assert.LessOrEqual(apiUsersResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
@@ -70,9 +73,12 @@ namespace Apis.Users
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
+
                 //Act
                 var apiUsersResponse = await _usersApi.GetAllUsersCollection();
+                Console.WriteLine($"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
 
                 //Assert
                 Assert.Multiple(() =>
@@ -96,8 +102,6 @@ namespace Apis.Users
                     HeadersHelper.HeadersList(apiUsersResponse, "Access-Control-Allow-Credentials").Value.Should().Be("true");
                     HeadersHelper.HeadersList(apiUsersResponse, "Vary").Value.Should().Be("Origin, Accept-Encoding");
                     HeadersHelper.HeadersList(apiUsersResponse, "Connection").Value.Should().Be("keep-alive");
-                    Console.WriteLine($"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
-                    //Assert.LessOrEqual(apiUsersResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
@@ -108,9 +112,12 @@ namespace Apis.Users
             for (int i = 0; i < repetitions; i++)
             {
                 Console.WriteLine($"Test will run {repetitions} time(s)");
+
                 //Arrange
+
                 //Act
                 var apiUsersResponse = await _usersApi.GetAllUsersCollection();
+                Console.WriteLine($"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
 
                 //Assert
                 Assert.Multiple(() =>
@@ -119,7 +126,6 @@ namespace Apis.Users
                     apiUsersResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
                     apiUsersResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
                     apiUsersResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
-                    Console.WriteLine($"Request execution time {apiUsersResponse.ElapsedMiliseconds} ms");
                 });
             }
         }

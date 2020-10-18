@@ -49,15 +49,14 @@ namespace Apis.Posts
         {
             for (int i = 0; i < repetitions; i++)
             {
+                Console.WriteLine($"Test will run {repetitions} time(s)");
                 //Arrange
 
                 //Act
                 var createPostResponse = await _postsApi.CreatePost(post);
+                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms");
                 var responseBody = createPostResponse.Data;
-                var headers = createPostResponse.Headers;
-                var search = "CF-RAY";
-                var result = headers.FirstOrDefault(s => s.Name == search);
-                var b = HeadersHelper.HeadersList(createPostResponse, "Etag");
+
                 //Assert
                 Assert.Multiple(() =>
                 {
@@ -66,7 +65,7 @@ namespace Apis.Posts
                     responseBody.title.Should().Be(post.title);
                     responseBody.body.Should().Be(post.body);
                     responseBody.userId.Should().Be(post.userId);
-                    Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms");
+                    //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
@@ -76,10 +75,12 @@ namespace Apis.Posts
         {
             for (int i = 0; i < repetitions; i++)
             {
+                Console.WriteLine($"Test will run {repetitions} time(s)");
                 //Arrange
 
                 //Act
                 var createPostResponse = await _postsApi.CreatePost(post);
+                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms");
                 var responseBody = createPostResponse.Data;
 
                 //Assert
@@ -105,8 +106,6 @@ namespace Apis.Posts
                     HeadersHelper.HeadersList(createPostResponse, "Access-Control-Allow-Credentials").Value.Should().Be("true");
                     HeadersHelper.HeadersList(createPostResponse, "Vary").Value.Should().Be("Origin, X-HTTP-Method-Override, Accept-Encoding");
                     HeadersHelper.HeadersList(createPostResponse, "Connection").Value.Should().Be("keep-alive");
-                    Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms");
-                    //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
@@ -121,6 +120,7 @@ namespace Apis.Posts
 
                 //Act
                 var createPostResponse = await _postsApi.CreatePost(post);
+                Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms ms");
                 var responseBody = createPostResponse.Data;
 
                 //Assert
@@ -131,8 +131,6 @@ namespace Apis.Posts
                     createPostResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
                     createPostResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
                     createPostResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
-                    Console.WriteLine($"Request execution time {createPostResponse.ElapsedMiliseconds} ms ms");
-                    //Assert.LessOrEqual(apiAlbumsResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumsResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
