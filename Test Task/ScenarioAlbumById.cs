@@ -28,7 +28,34 @@ namespace Apis.Albums
         }
 
         [Test]
-        public async Task GetAlbumById()
+        public async Task VerifyCookiesForGetAlbumByIdEndpoint()
+        {
+            for (int i = 0; i < repetitions; i++)
+            {
+                Console.WriteLine($"Test will run {repetitions} time(s)");
+
+                //Arrange
+                var allAlbums = await _albumApi.GetAllAlbumsCollection();
+                var album = allAlbums.Data.FirstOrDefault();
+
+                //Act
+                var apiAlbumResponse = await _albumApi.GetAlbumById(album.id);
+                Console.WriteLine($"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
+
+                //Assert
+                Assert.Multiple(() =>
+                {
+                    apiAlbumResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+                    apiAlbumResponse.Cookies.Should().NotBeNull();
+                    apiAlbumResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
+                    apiAlbumResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
+                    apiAlbumResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
+                });
+            }
+        }
+
+        [Test]
+        public async Task VerifyBodyForGetAlbumByIdEndpoint()
         {
             for (int i = 0; i < repetitions; i++)
             {
@@ -50,8 +77,30 @@ namespace Apis.Albums
                     apiAlbumResponse.Data.id.Should().BePositive();
                     apiAlbumResponse.Data.userId.Should().BePositive();
                     apiAlbumResponse.Data.title.Should().NotBeNullOrEmpty();
-                    apiAlbumResponse.ContentType.Should().Be("application/json; charset=utf-8");
-                    apiAlbumResponse.ContentEncoding.Should().BeNull();
+                    //Assert.LessOrEqual(apiAlbumResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
+                });
+            }
+        }
+
+        [Test]
+        public async Task VerifyHeadersForGetAlbumByIdEndpoint()
+        {
+            for (int i = 0; i < repetitions; i++)
+            {
+                Console.WriteLine($"Test will run {repetitions} time(s)");
+
+                //Arrange
+                var allAlbums = await _albumApi.GetAllAlbumsCollection();
+                var album = allAlbums.Data.FirstOrDefault();
+
+                //Act
+                var apiAlbumResponse = await _albumApi.GetAlbumById(album.id);
+                Console.WriteLine($"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
+
+                //Assert
+                Assert.Multiple(() =>
+                {
+                    apiAlbumResponse.StatusCode.Should().Be(HttpStatusCode.OK);
                     HeadersHelper.HeadersList(apiAlbumResponse, "Set-Cookie").Value.Should().NotBeNull();
                     HeadersHelper.HeadersList(apiAlbumResponse, "CF-RAY").Value.Should().NotBeNull();
                     HeadersHelper.HeadersList(apiAlbumResponse, "cf-request-id").Value.Should().NotBeNull();
@@ -67,11 +116,6 @@ namespace Apis.Albums
                     HeadersHelper.HeadersList(apiAlbumResponse, "Access-Control-Allow-Credentials").Value.Should().Be("true");
                     HeadersHelper.HeadersList(apiAlbumResponse, "Vary").Value.Should().Be("Origin, Accept-Encoding");
                     HeadersHelper.HeadersList(apiAlbumResponse, "Connection").Value.Should().Be("keep-alive");
-                    apiAlbumResponse.Cookies.Should().NotBeNull();
-                    apiAlbumResponse.Cookies.FirstOrDefault().Expired.Should().BeFalse();
-                    apiAlbumResponse.Cookies.FirstOrDefault().Expires.Should().NotBeSameDateAs(DateTime.Today);
-                    apiAlbumResponse.Cookies.FirstOrDefault().Name.Should().Be("__cfduid");
-                    //Assert.LessOrEqual(apiAlbumResponse.ElapsedMiliseconds, 200.00, $"Request execution time {apiAlbumResponse.ElapsedMiliseconds} ms");
                 });
             }
         }
